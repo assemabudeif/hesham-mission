@@ -1,0 +1,10 @@
+{
+    "cSpell.words": [
+        "Cupertino",
+        "sqflite"
+    ],
+    "yaml.schemas": {
+        "https://json.schemastore.org/pubspec.json": "file:///d%3A/Programming/tasks/tasks/pubspec.yaml"
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
