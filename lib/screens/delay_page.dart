@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:tasks/constants/constant.dart';
@@ -49,6 +48,7 @@ class _DelayPageState extends State<DelayPage> {
     ).then((value) {
       dateController.text = DateTimeManager.dateFormat(value!);
       widget.note.noteDate = dateController.text;
+      widget.note.status = noteStatusNotComplete;
 
       print(dateController.text);
     }).catchError((error) {
@@ -63,6 +63,8 @@ class _DelayPageState extends State<DelayPage> {
     ).then((value) {
       timeController.text = DateTimeManager.timeFormat(value!);
       widget.note.noteTime = timeController.text;
+      widget.note.status = noteStatusNotComplete;
+
       print(timeController.text);
     }).catchError((error) {
       print(error.toString());
@@ -126,7 +128,11 @@ class _DelayPageState extends State<DelayPage> {
               onPressed: () {
                 CURD.curd.update(widget.note, widget.table).then((value) {
                   addNewNotification(
-                      widget.note, widget.note.id!, widget.table);
+                    widget.note,
+                    widget.note.id!,
+                    widget.table,
+                    widget.note.type!,
+                  );
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (_) => const MyHomePage()),

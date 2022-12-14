@@ -1,20 +1,19 @@
 import 'dart:developer';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tasks/add_items_and_goals/add_total_goal.dart';
-import 'package:tasks/constants/note.dart';
-import 'package:tasks/constants/curd.dart';
-import 'package:tasks/screens/fixed_goals.dart';
 import 'package:tasks/add_items_and_goals/new_goal.dart';
+import 'package:tasks/constants/curd.dart';
+import 'package:tasks/constants/note.dart';
+import 'package:tasks/screens/fixed_goals.dart';
 import 'package:tasks/screens/info_screen.dart';
-import 'package:tasks/screens/notification_page.dart';
+import 'package:tasks/screens/rating/rating_screen.dart';
 import 'package:tasks/screens/search_screen.dart';
 
-import 'archive_screen.dart';
 import '../add_items_and_goals/elements.dart';
 import '../constants/constant.dart';
+import 'archive_screen.dart';
 import 'note_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -110,6 +109,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RatingScreen(),
+                      ),
+                    );
+                  },
+                  color: KPrimaryColor,
+                  child: const Text(
+                    'التقيمات',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                const SizedBox(
+                  height: KDefaultPadding,
                 ),
                 Stack(
                   children: [

@@ -18,6 +18,10 @@ const archiveTableName = 'archiveTable';
 const fixedTableName = 'fixedTable';
 const dbVersion = 1;
 
+// List<NoteModel> singleNotes = [];
+// List<List<NoteModel>> complexNote = [];
+// List<List<NoteModel>> fixedNotes = [];
+
 //cols
 const colId = 'noteId';
 const colNotificationId = 'notificationId';

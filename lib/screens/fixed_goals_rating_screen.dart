@@ -1,8 +1,9 @@
 import 'package:easy_table/easy_table.dart';
 import 'package:flutter/material.dart';
 import 'package:tasks/constants/constant.dart';
+import 'package:tasks/constants/curd.dart';
+import 'package:tasks/constants/date_time_manager.dart';
 import 'package:tasks/constants/note.dart';
-import 'package:tasks/methods.dart';
 
 class FixedGoalsRatingScreen extends StatefulWidget {
   final List<List<NoteModel>> notes;
@@ -35,6 +36,25 @@ class _FixedGoalsRatingScreenState extends State<FixedGoalsRatingScreen> {
           ],
         ),
       );
+    }
+    // change done after 24 hours
+    for (var element in widget.notes) {
+      TimeOfDay timeOfDay = TimeOfDay.now();
+      var time = DateTimeManager.timeFormat(timeOfDay);
+      var timeSplit = time.split(':');
+
+      for (var note in element) {
+        var noteTimeSplit = note.noteTime!.split(':');
+
+        if (int.parse(noteTimeSplit[0]) <= int.parse(time[0])) {
+          note.status = noteStatusNotComplete;
+          CURD.curd.update(note, fixedTableName).then((value) {
+            print('done');
+          }).catchError((error) {
+            print(error.toString());
+          });
+        }
+      }
     }
     super.initState();
   }

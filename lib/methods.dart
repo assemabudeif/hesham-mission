@@ -1,11 +1,12 @@
-import 'dart:io';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'constants/constant.dart';
-import 'constants/note.dart';
 import 'dart:developer';
 
-void addNewNotification(NoteModel note, int id, String table) async {
+import 'package:awesome_notifications/awesome_notifications.dart';
+
+import 'constants/constant.dart';
+import 'constants/note.dart';
+
+void addNewNotification(
+    NoteModel note, int id, String table, String type) async {
   var dates = note.noteDate!.split('/');
   var time = note.noteTime!.split(':');
 
@@ -13,7 +14,11 @@ void addNewNotification(NoteModel note, int id, String table) async {
   AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: note.notificationId!,
-      payload: {'id': id.toString(), 'table': table},
+      payload: {
+        'id': id.toString(),
+        'table': table,
+        'type': type,
+      },
       channelKey: channelKey,
       title: note.name,
       category: NotificationCategory.Alarm,
@@ -41,7 +46,11 @@ void addNewNotification(NoteModel note, int id, String table) async {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: note.notificationId! - 15,
-        payload: {'id': id.toString(), 'table': table},
+        payload: {
+          'id': id.toString(),
+          'table': table,
+          'type': type,
+        },
         channelKey: channelKey,
         title: note.name,
         category: NotificationCategory.Alarm,
@@ -74,7 +83,11 @@ void addNewNotification(NoteModel note, int id, String table) async {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: note.notificationId! + 15,
-        payload: {'id': id.toString(), 'table': table},
+        payload: {
+          'id': id.toString(),
+          'table': table,
+          'type': type,
+        },
         channelKey: channelKey,
         title: note.name,
         category: NotificationCategory.Alarm,

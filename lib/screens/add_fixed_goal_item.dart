@@ -1,19 +1,17 @@
 import 'dart:developer';
 
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:record/record.dart';
 import 'package:tasks/constants/constant.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-
 import 'package:tasks/constants/curd.dart';
 import 'package:tasks/constants/date_time_manager.dart';
 import 'package:tasks/constants/note.dart';
 import 'package:tasks/methods.dart';
 import 'package:tasks/screens/home_page.dart';
-import '../constants/note.dart';
 
 class AddFixedGoalItemPage extends StatefulWidget {
   const AddFixedGoalItemPage({Key? key, required this.table}) : super(key: key);
@@ -137,7 +135,11 @@ class _AddFixedGoalItemPageState extends State<AddFixedGoalItemPage> {
         AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: note.notificationId!,
-            payload: {'id': id.toString(), 'table': widget.table},
+            payload: {
+              'id': id.toString(),
+              'table': widget.table,
+              'type': note.type!
+            },
             channelKey: channelKey,
             title: note.name,
             category: NotificationCategory.Alarm,
@@ -161,7 +163,11 @@ class _AddFixedGoalItemPageState extends State<AddFixedGoalItemPage> {
         AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: note.notificationId! - 15,
-            payload: {'id': id.toString(), 'table': widget.table},
+            payload: {
+              'id': id.toString(),
+              'table': widget.table,
+              'type': note.type!
+            },
             channelKey: channelKey,
             title: note.name,
             category: NotificationCategory.Alarm,
@@ -185,7 +191,11 @@ class _AddFixedGoalItemPageState extends State<AddFixedGoalItemPage> {
         AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: note.notificationId! + 15,
-            payload: {'id': id.toString(), 'table': widget.table},
+            payload: {
+              'id': id.toString(),
+              'table': widget.table,
+              'type': note.type!
+            },
             channelKey: channelKey,
             title: note.name,
             category: NotificationCategory.Alarm,
@@ -213,7 +223,11 @@ class _AddFixedGoalItemPageState extends State<AddFixedGoalItemPage> {
         AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: note.notificationId!,
-            payload: {'id': id.toString(), 'table': widget.table},
+            payload: {
+              'id': id.toString(),
+              'table': widget.table,
+              'type': note.type!
+            },
             channelKey: channelKey,
             title: note.name,
             category: NotificationCategory.Alarm,
@@ -238,7 +252,11 @@ class _AddFixedGoalItemPageState extends State<AddFixedGoalItemPage> {
         AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: note.notificationId! - 15,
-            payload: {'id': id.toString(), 'table': widget.table},
+            payload: {
+              'id': id.toString(),
+              'table': widget.table,
+              'type': note.type!
+            },
             channelKey: channelKey,
             title: note.name,
             category: NotificationCategory.Alarm,
@@ -263,7 +281,11 @@ class _AddFixedGoalItemPageState extends State<AddFixedGoalItemPage> {
         AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: note.notificationId! + 15,
-            payload: {'id': id.toString(), 'table': widget.table},
+            payload: {
+              'id': id.toString(),
+              'table': widget.table,
+              'type': note.type!
+            },
             channelKey: channelKey,
             title: note.name,
             category: NotificationCategory.Alarm,

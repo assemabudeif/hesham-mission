@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -12,8 +11,6 @@ import 'package:tasks/constants/date_time_manager.dart';
 import 'package:tasks/constants/note.dart';
 import 'package:tasks/methods.dart';
 import 'package:tasks/screens/home_page.dart';
-
-import '../constants/shared_prefrences.dart';
 
 class NewGoal extends StatefulWidget {
   const NewGoal({Key? key, required this.table}) : super(key: key);
@@ -256,7 +253,12 @@ class _NewGoalState extends State<NewGoal> {
                           );
                           CURD.curd.insert(note, widget.table).then((value) {
                             log(value.toString());
-                            addNewNotification(note, value, widget.table);
+                            addNewNotification(
+                              note,
+                              value,
+                              widget.table,
+                              note.type.toString(),
+                            );
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

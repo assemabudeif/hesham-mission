@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:record/record.dart';
@@ -262,7 +261,12 @@ class _EditNotePageState extends State<EditNotePage> {
 
                         CURD.curd.update(note, widget.table).then((value) {
                           log(value.toString());
-                          addNewNotification(note, value, widget.table);
+                          addNewNotification(
+                            note,
+                            value,
+                            widget.table,
+                            note.type!,
+                          );
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(

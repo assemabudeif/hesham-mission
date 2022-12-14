@@ -1,17 +1,17 @@
+import 'dart:developer';
+
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:record/record.dart';
-import 'package:tasks/add_items_and_goals/elements.dart';
 import 'package:tasks/constants/constant.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-
 import 'package:tasks/constants/curd.dart';
 import 'package:tasks/constants/date_time_manager.dart';
 import 'package:tasks/constants/note.dart';
 import 'package:tasks/screens/home_page.dart';
-import '../constants/note.dart';
+
 import '../methods.dart';
 
 class NewItemPage extends StatefulWidget {
@@ -58,7 +58,7 @@ class _NewItemPageState extends State<NewItemPage> {
       setState(() {
         audioPath = value!;
       });
-      print(value);
+      log(value!);
     });
     setState(() {
       isRecording = false;
@@ -89,10 +89,9 @@ class _NewItemPageState extends State<NewItemPage> {
       lastDate: DateTime.now().add(const Duration(days: 365)),
     ).then((value) {
       dateController.text = DateTimeManager.dateFormat(value!);
-
-      print(dateController.text);
+      log(dateController.text);
     }).catchError((error) {
-      print(error.toString());
+      log(error.toString());
     });
   }
 
@@ -102,19 +101,23 @@ class _NewItemPageState extends State<NewItemPage> {
       initialTime: TimeOfDay.now(),
     ).then((value) {
       timeController.text = DateTimeManager.timeFormat(value!);
-      print(timeController.text);
+      log(timeController.text);
     }).catchError((error) {
-      print(error.toString());
+      log(error.toString());
     });
   }
 
-  void addNewFixedNotification(NoteModel note, int id) async {
+  void addNewFixedNotification(NoteModel note, int id, String type) async {
     var dates = note.noteDate!.split('/');
     var time = note.noteTime!.split(':');
     AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: DateTime.now().millisecondsSinceEpoch.remainder(100000),
-        payload: {'id': id.toString(), 'table': widget.table},
+        payload: {
+          'id': id.toString(),
+          'table': widget.table,
+          'type': type,
+        },
         channelKey: channelKey,
         title: note.name,
         category: NotificationCategory.Alarm,
@@ -274,9 +277,10 @@ class _NewItemPageState extends State<NewItemPage> {
                         if (formKey.currentState!.validate() &&
                             audioPath != '') {
                           NoteModel note = NoteModel(
-                            notificationId: DateTime.now()
-                                .millisecondsSinceEpoch
-                                .remainder(100000),
+                            notificationId: UniqueKey().hashCode,
+                            // DateTime.now()
+                            //     .millisecondsSinceEpoch
+                            //     .remainder(100000),
                             name: nameController.text,
                             noteDate: dateController.text,
                             noteTime: timeController.text,
@@ -287,9 +291,15 @@ class _NewItemPageState extends State<NewItemPage> {
                           );
                           CURD.curd.insert(note, widget.table).then((value) {
                             if (widget.isFixed) {
-                              addNewFixedNotification(note, value);
+                              addNewFixedNotification(
+                                  note, value, note.type.toString());
                             } else {
-                              addNewNotification(note, value, widget.table);
+                              addNewNotification(
+                                note,
+                                value,
+                                widget.table,
+                                note.type.toString(),
+                              );
                             }
                             Navigator.pushAndRemoveUntil(
                               context,
